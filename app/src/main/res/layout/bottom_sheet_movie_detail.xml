@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/constraint_layout_root"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_bottom_sheet"
+    app:behavior_hideable="false"
+    app:behavior_peekHeight="108dp"
+    app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
+
+    <View
+        android:id="@+id/view_indicator"
+        android:layout_width="80dp"
+        android:layout_height="8dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/bg_rounded_8dp"
+        android:backgroundTint="#bdbdbd"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/text_view_vote_count"
+        style="@style/Text.Body1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/votes_count_default_label"
+        android:textColor="@color/pinkColor"
+        app:layout_constraintEnd_toEndOf="@+id/text_view_vote_average"
+        app:layout_constraintStart_toStartOf="@+id/text_view_vote_average"
+        app:layout_constraintTop_toBottomOf="@+id/text_view_vote_average" />
+
+    <TextView
+        android:id="@+id/text_view_minute_label"
+        style="@style/Text.Body1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Minute"
+        app:layout_constraintEnd_toEndOf="@+id/text_view_minute"
+        app:layout_constraintStart_toStartOf="@+id/text_view_minute"
+        app:layout_constraintTop_toTopOf="@+id/text_view_vote_count" />
+
+    <TextView
+        android:id="@+id/text_view_release_year_label"
+        style="@style/Text.Body1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/release_year_title"
+        app:layout_constraintEnd_toEndOf="@+id/text_view_release_year"
+        app:layout_constraintStart_toStartOf="@+id/text_view_release_year"
+        app:layout_constraintTop_toTopOf="@+id/text_view_minute_label" />
+
+    <TextView
+        android:id="@+id/text_view_release_year"
+        style="@style/Text.Title.Bold"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/zero_label"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/view_separator_2"
+        app:layout_constraintTop_toTopOf="@+id/text_view_minute" />
+
+    <TextView
+        android:id="@+id/text_view_minute"
+        style="@style/Text.Title.Bold"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/zero_label"
+        app:layout_constraintEnd_toStartOf="@+id/view_separator_1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/text_view_vote_average" />
+
+    <TextView
+        android:id="@+id/text_view_vote_average"
+        style="@style/Text.Title.Bold"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="8dp"
+        android:text="@string/zero_label"
+        android:textColor="@color/pinkColor"
+        app:layout_constraintBottom_toTopOf="@+id/text_view_vote_count"
+        app:layout_constraintEnd_toEndOf="@+id/view_indicator"
+        app:layout_constraintHorizontal_chainStyle="spread"
+        app:layout_constraintStart_toStartOf="@+id/view_indicator"
+        app:layout_constraintTop_toBottomOf="@id/view_indicator" />
+
+    <View
+        android:id="@+id/view_separator_1"
+        android:layout_width="1dp"
+        android:layout_height="0dp"
+        android:layout_marginVertical="8dp"
+        android:background="@android:color/black"
+        app:layout_constraintBottom_toBottomOf="@id/text_view_vote_count"
+        app:layout_constraintEnd_toStartOf="@+id/view_indicator"
+        app:layout_constraintStart_toStartOf="@+id/guideline2"
+        app:layout_constraintTop_toTopOf="@id/text_view_vote_average" />
+
+    <View
+        android:id="@+id/view_separator_2"
+        android:layout_width="1dp"
+        android:layout_height="0dp"
+        android:layout_marginVertical="8dp"
+        android:background="@android:color/black"
+        app:layout_constraintBottom_toBottomOf="@+id/text_view_vote_count"
+        app:layout_constraintEnd_toStartOf="@+id/guideline3"
+        app:layout_constraintStart_toEndOf="@+id/view_indicator"
+        app:layout_constraintTop_toTopOf="@+id/text_view_vote_average" />
+
+    <TextView
+        android:id="@+id/text_view_overview_label"
+        style="@style/Text.SubTitle.Bold"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/overview_title"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/text_view_vote_count" />
+
+    <TextView
+        android:id="@+id/text_view_overview"
+        style="@style/Text.Body1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/no_available_information"
+        app:layout_constraintEnd_toEndOf="@id/text_view_overview_label"
+        app:layout_constraintStart_toStartOf="@id/text_view_overview_label"
+        app:layout_constraintTop_toBottomOf="@id/text_view_overview_label" />
+
+    <Button
+        android:id="@+id/button_to_imdb"
+        style="?attr/materialButtonOutlinedStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="16dp"
+        android:drawableEnd="@drawable/ic_imdb_logo"
+        android:text="@string/see_in_label"
+        android:textAllCaps="false"
+        android:textColor="@color/pinkColor"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/text_view_overview"
+        app:layout_constraintTop_toBottomOf="@+id/text_view_overview"
+        app:strokeColor="@color/pinkColor" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.30" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.70" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

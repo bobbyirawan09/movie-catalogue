@@ -1,0 +1,34 @@
+<resources>
+    <string name="app_name">Movie Catalogue</string>
+    <string name="no_available_information">No available information</string>
+    <string name="settings_title">Settings</string>
+    <string name="vote_count_label">(%s votes)</string>
+    <string name="release_date_label">Release date</string>
+    <string name="share_title">Share</string>
+    <string name="release_year_title">Release Year</string>
+    <string name="overview_title">Overview</string>
+    <string name="share_message">Check out this movie called \'%1$s\'\nRating: %2$s</string>
+    <string name="imdb_link">https://www.imdb.com/title/%s/</string>
+    <string name="see_in_label">See in&#160;</string>
+    <string name="episodes_label">Episodes</string>
+    <string name="seasons_title">Seasons</string>
+    <string name="others_title">Lainnya</string>
+    <string name="no_internet_label">No Internet Connection</string>
+    <string name="retry_label">Retry</string>
+    <string name="votes_count_default_label">0 votes</string>
+    <string name="zero_label">0</string>
+    <string name="movies_title">MOVIES</string>
+    <string name="tv_shows_title">TV SHOWS</string>
+    <string name="title_activity_main">Movie Catalogue</string>
+    <string name="title_explore">Explore</string>
+    <string name="title_favorite">Favorite</string>
+    <string name="title_sort">Sort</string>
+    <string name="title_a_to_z">A-Z</string>
+    <string name="title_z_to_a">Z-A</string>
+    <string name="title_highest_vote_average">Highest Vote Average</string>
+    <string name="title_lowest_vote_average">Lowest Vote Average</string>
+    <string name="title_image_movie_backdrop">Image Movie Backdrop</string>
+    <string name="title_image_back">Image Back</string>
+    <string name="title_image_share">Image Share</string>
+    <string name="title_image_favorite">Image Favorite</string>
+</resources>
