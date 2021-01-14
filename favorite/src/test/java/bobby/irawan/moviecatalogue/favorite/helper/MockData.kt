@@ -1,5 +1,7 @@
 package bobby.irawan.moviecatalogue.helper
 
+import bobby.irawan.moviecatalogue.core.data.local.entity.FavoriteEntity
+import bobby.irawan.moviecatalogue.core.domain.model.FavoriteDomainModel
 import bobby.irawan.moviecatalogue.presentation.model.GenreModelView
 
 //@file:Suppress("UNCHECKED_CAST")
@@ -339,17 +341,17 @@ object MockData {
 //    ) as DataSource.Factory<Int, FavoriteEntity>
 //    val pagedListFavorite = LivePagedListBuilder(dataSourceFactory, config).build()
 //
-//    val favoriteMovie = FavoriteEntity(
-//        id = 528085,
-//        title = "2067",
-//        releaseDate = "01 October 2020",
-//        posterUrl = "https://image.tmdb.org/t/p/w342/7D430eqZj8y3oVkLFfsWXGRcpEG.jpg",
-//        backdropUrl = "https://image.tmdb.org/t/p/w780/5UkzNSOK561c2QRy2Zr4AkADzLT.jpg",
-//        overview = "A lowly utility worker is called to the future by a mysterious radio signal, he must leave his dying wife to embark on a journey that will force him to face his deepest fears in an attempt to change the fabric of reality and save humankind from its greatest environmental crisis yet.",
-//        voteCount = 348,
-//        voteAverage = 4.7,
-//        type = "movie"
-//    )
+    val favoriteMovie = FavoriteEntity(
+        id = 528085,
+        title = "2067",
+        releaseDate = "01 October 2020",
+        posterUrl = "https://image.tmdb.org/t/p/w342/7D430eqZj8y3oVkLFfsWXGRcpEG.jpg",
+        backdropUrl = "https://image.tmdb.org/t/p/w780/5UkzNSOK561c2QRy2Zr4AkADzLT.jpg",
+        overview = "A lowly utility worker is called to the future by a mysterious radio signal, he must leave his dying wife to embark on a journey that will force him to face his deepest fears in an attempt to change the fabric of reality and save humankind from its greatest environmental crisis yet.",
+        voteCount = 348,
+        voteAverage = 4.7,
+        type = "movie"
+    )
 //    val modelFavoriteMovie = FavoriteDomainModel(
 //        id = 528085,
 //        title = "2067",
@@ -359,22 +361,22 @@ object MockData {
 //        voteCount = 348,
 //        voteAverage = 4.7
 //    )
+
+    val favoriteMovieId = 528085
+    val favoriteMovieIdDesc = 724989
 //
-//    val favoriteMovieId = 528085
-//    val favoriteMovieIdDesc = 724989
-//
-//    val favoriteMovie2 = FavoriteEntity(
-//        id = 724989,
-//        title = "Hard Kill",
-//        releaseDate = "23 October 2020",
-//        posterUrl = "https://image.tmdb.org/t/p/w342/ugZW8ocsrfgI95pnQ7wrmKDxIe.jpg",
-//        backdropUrl = "https://image.tmdb.org/t/p/w780/86L8wqGMDbwURPni2t7FQ0nDjsH.jpg",
-//        overview = "The work of billionaire tech CEO Donovan Chalmers is so valuable that he hires mercenaries to protect it, and a terrorist group kidnaps his daughter just to get it.",
-//        voteCount = 166,
-//        voteAverage = 5.0,
-//        type = "movie"
-//    )
-//    val listFavoriteMovie = listOf(favoriteMovie, favoriteMovie2)
-//    val listFavoriteMovieDesc = listOf(favoriteMovie2, favoriteMovie)
+    val favoriteMovie2 = FavoriteEntity(
+        id = 724989,
+        title = "Hard Kill",
+        releaseDate = "23 October 2020",
+        posterUrl = "https://image.tmdb.org/t/p/w342/ugZW8ocsrfgI95pnQ7wrmKDxIe.jpg",
+        backdropUrl = "https://image.tmdb.org/t/p/w780/86L8wqGMDbwURPni2t7FQ0nDjsH.jpg",
+        overview = "The work of billionaire tech CEO Donovan Chalmers is so valuable that he hires mercenaries to protect it, and a terrorist group kidnaps his daughter just to get it.",
+        voteCount = 166,
+        voteAverage = 5.0,
+        type = "movie"
+    )
+    val listFavoriteMovie = listOf(favoriteMovie, favoriteMovie2)
+    val listFavoriteMovieDesc = listOf(favoriteMovie2, favoriteMovie)
 //
 }

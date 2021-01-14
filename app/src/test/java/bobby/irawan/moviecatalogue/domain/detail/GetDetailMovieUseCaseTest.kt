@@ -1,3 +1,4 @@
+package bobby.irawan.moviecatalogue.domain.detail/*
 package bobby.irawan.moviecatalogue.domain.detail
 
 import bobby.irawan.movieapp.helper.BaseTest
@@ -18,9 +19,11 @@ import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
 import org.junit.Test
 
+*/
 /**
  * Created by Bobby Irawan on 10/11/20.
- */
+ *//*
+
 @ExperimentalCoroutinesApi
 class GetDetailMovieUseCaseTest : BaseTest() {
 
@@ -67,4 +70,4 @@ class GetDetailMovieUseCaseTest : BaseTest() {
             )
         }
     }
-}
+}*/
