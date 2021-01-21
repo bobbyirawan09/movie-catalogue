@@ -2,6 +2,7 @@ package bobby.irawan.moviecatalogue.presentation
 
 import android.os.Bundle
 import android.view.Menu
+import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
@@ -27,10 +28,6 @@ class MainActivity : AppCompatActivity() {
     private fun setupView() {
         navHostFragment =
             supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
-        NavigationUI.setupWithNavController(
-            binding.bottomNavigationMenu,
-            navHostFragment.navController
-        )
 
         val appBarConfiguration = AppBarConfiguration(
             topLevelDestinationIds = setOf(
@@ -42,19 +39,27 @@ class MainActivity : AppCompatActivity() {
         setupActionBarWithNavController(navHostFragment.navController, appBarConfiguration)
     }
 
-    fun showBottomNavigation() {
-        binding.bottomNavigationMenu.setVisible()
-    }
-
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.home_menu, menu)
         return true
     }
 
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.favorite -> navHostFragment.findNavController().navigate(R.id.favoriteFragment)
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        val navController = navHostFragment.navController
+        return navController.navigateUp() || super.onSupportNavigateUp()
+    }
+
     override fun onBackPressed() {
         val navigationController = navHostFragment.findNavController()
         val currentDestId = navigationController.currentDestination?.id
-        if (currentDestId == R.id.homeFragment || currentDestId == R.id.favoriteFragment) {
+        if (currentDestId == R.id.homeFragment) {
             finish()
         } else {
             super.onBackPressed()
