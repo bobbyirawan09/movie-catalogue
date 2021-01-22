@@ -18,8 +18,8 @@ interface MovieCatalogueUseCase {
     suspend fun getDetailTvShow(tvId: Int): Flow<SimpleResult<TvShowDetailDomainModel>>
 
     //Favorite
-    fun getFavoriteMovie(choice: Int): Flow<List<FavoriteDomainModel>>
-    fun getFavoriteTvShow(choice: Int): Flow<List<FavoriteDomainModel>>
+    fun getFavoriteMovie(): Flow<List<FavoriteDomainModel>>
+    fun getFavoriteTvShow(): Flow<List<FavoriteDomainModel>>
     fun getAllFavorite(): Flow<List<FavoriteDomainModel>>
     suspend fun getFavoriteById(favoriteId: Int): FavoriteDomainModel?
     suspend fun addFavorite(favoriteDomainModel: FavoriteDomainModel)

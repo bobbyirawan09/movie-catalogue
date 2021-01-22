@@ -15,8 +15,8 @@ interface Repository {
 
     fun getAllFavorite(): Flow<List<FavoriteDomainModel>>
     suspend fun getFavoriteById(favoriteId: Int): FavoriteDomainModel?
-    fun getFavoriteTvShow(choice: Int): Flow<List<FavoriteDomainModel>>
-    fun getFavoriteMovie(choice: Int): Flow<List<FavoriteDomainModel>>
+    fun getFavoriteTvShow(): Flow<List<FavoriteDomainModel>>
+    fun getFavoriteMovie(): Flow<List<FavoriteDomainModel>>
     suspend fun addFavorite(favoriteDomainModel: FavoriteDomainModel)
     suspend fun deleteFavorite(favoriteDomainModel: FavoriteDomainModel): Int
 }

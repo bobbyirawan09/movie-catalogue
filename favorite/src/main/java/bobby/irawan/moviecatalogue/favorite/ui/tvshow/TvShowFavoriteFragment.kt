@@ -7,12 +7,11 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.observe
 import bobby.irawan.moviecatalogue.databinding.FragmentTvShowFavoriteBinding
-import bobby.irawan.moviecatalogue.favorite.commons.SortDialogFragment
 import bobby.irawan.moviecatalogue.favorite.ui.adapter.ItemFavoriteAdapter
 import bobby.irawan.moviecatalogue.presentation.detail.tvshow.TvShowDetailActivity
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class TvShowFavoriteFragment : Fragment(), SortDialogFragment.SortListener {
+class TvShowFavoriteFragment : Fragment() {
 
     private var binding: FragmentTvShowFavoriteBinding? = null
     private val viewModel by viewModel<TvShowFavoriteViewModel>()
@@ -34,7 +33,6 @@ class TvShowFavoriteFragment : Fragment(), SortDialogFragment.SortListener {
         super.onViewCreated(view, savedInstanceState)
 
         setupView()
-        setupListener()
         setupObserver()
     }
 
@@ -42,24 +40,8 @@ class TvShowFavoriteFragment : Fragment(), SortDialogFragment.SortListener {
         binding?.recyclerViewItem?.adapter = adapter
     }
 
-    private fun setupListener() {
-        binding?.buttonSort?.setOnClickListener {
-            SortDialogFragment.show(
-                childFragmentManager,
-                viewModel.currentSort,
-                sortListener = this
-            )
-        }
-    }
-
     private fun setupObserver() {
         viewModel.getTvShowFavorites().observe(viewLifecycleOwner) {
-            adapter.submitList(it)
-        }
-    }
-
-    override fun onSortSelected(choice: Int) {
-        viewModel.onSortSelected(choice).observe(viewLifecycleOwner) {
             adapter.submitList(it)
         }
     }

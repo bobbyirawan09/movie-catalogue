@@ -7,13 +7,12 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.observe
 import bobby.irawan.moviecatalogue.databinding.FragmentMovieFavoriteBinding
-import bobby.irawan.moviecatalogue.favorite.commons.SortDialogFragment
 import bobby.irawan.moviecatalogue.favorite.ui.adapter.ItemFavoriteAdapter
 import bobby.irawan.moviecatalogue.presentation.detail.movie.MovieDetailActivity
 import bobby.irawan.moviecatalogue.utils.CountingIdlingResourceSingleton
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class MovieFavoriteFragment : Fragment(), SortDialogFragment.SortListener {
+class MovieFavoriteFragment : Fragment() {
 
     private var binding: FragmentMovieFavoriteBinding? = null
     private val viewModel by viewModel<MovieFavoriteViewModel>()
@@ -35,7 +34,6 @@ class MovieFavoriteFragment : Fragment(), SortDialogFragment.SortListener {
         super.onViewCreated(view, savedInstanceState)
 
         setupView()
-        setupListener()
         setupObserver()
     }
 
@@ -43,27 +41,9 @@ class MovieFavoriteFragment : Fragment(), SortDialogFragment.SortListener {
         binding?.recyclerViewItem?.adapter = adapter
     }
 
-    private fun setupListener() {
-        binding?.buttonSort?.setOnClickListener {
-            SortDialogFragment.show(
-                childFragmentManager,
-                viewModel.currentSort,
-                sortListener = this
-            )
-        }
-    }
-
     private fun setupObserver() {
         CountingIdlingResourceSingleton.increment()
         viewModel.getMovieFavorites().observe(viewLifecycleOwner) {
-            CountingIdlingResourceSingleton.decrement()
-            adapter.submitList(it)
-        }
-    }
-
-    override fun onSortSelected(choice: Int) {
-        CountingIdlingResourceSingleton.increment()
-        viewModel.onSortSelected(choice).observe(viewLifecycleOwner) {
             CountingIdlingResourceSingleton.decrement()
             adapter.submitList(it)
         }

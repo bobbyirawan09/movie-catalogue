@@ -21,11 +21,11 @@ class MovieCatalogueUseCaseImpl(private val repository: Repository) : MovieCatal
     override suspend fun getDetailTvShow(tvId: Int): Flow<SimpleResult<TvShowDetailDomainModel>> =
         repository.getDetailTvShow(tvId)
 
-    override fun getFavoriteMovie(choice: Int): Flow<List<FavoriteDomainModel>> =
-        repository.getFavoriteMovie(choice)
+    override fun getFavoriteMovie(): Flow<List<FavoriteDomainModel>> =
+        repository.getFavoriteMovie()
 
-    override fun getFavoriteTvShow(choice: Int): Flow<List<FavoriteDomainModel>> =
-        repository.getFavoriteTvShow(choice)
+    override fun getFavoriteTvShow(): Flow<List<FavoriteDomainModel>> =
+        repository.getFavoriteTvShow()
 
     override fun getAllFavorite(): Flow<List<FavoriteDomainModel>> =
         repository.getAllFavorite()

@@ -65,16 +65,16 @@ class RepositoryImpl(
         return DataMapper.favoriteEntityToDomain(favoriteEntity)
     }
 
-    override fun getFavoriteTvShow(choice: Int): Flow<List<FavoriteDomainModel>> {
-        return localDataSource.getFavoriteTvShow(choice).map { favoriteEntites ->
+    override fun getFavoriteTvShow(): Flow<List<FavoriteDomainModel>> {
+        return localDataSource.getFavoriteTvShow().map { favoriteEntites ->
             favoriteEntites.map { favoriteEntity ->
                 DataMapper.favoriteEntityToDomain(favoriteEntity)
             }
         }
     }
 
-    override fun getFavoriteMovie(choice: Int): Flow<List<FavoriteDomainModel>> {
-        return localDataSource.getFavoriteMovie(choice).map { favoriteEntites ->
+    override fun getFavoriteMovie(): Flow<List<FavoriteDomainModel>> {
+        return localDataSource.getFavoriteMovie().map { favoriteEntites ->
             favoriteEntites.map { favoriteEntity ->
                 DataMapper.favoriteEntityToDomain(favoriteEntity)
             }

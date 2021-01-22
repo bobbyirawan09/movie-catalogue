@@ -1,6 +1,5 @@
 package bobby.irawan.moviecatalogue.favorite.ui
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,7 +9,6 @@ import bobby.irawan.moviecatalogue.databinding.FragmentFavoriteBinding
 import bobby.irawan.moviecatalogue.favorite.di.favoriteModule
 import bobby.irawan.moviecatalogue.favorite.ui.movie.MovieFavoriteFragment
 import bobby.irawan.moviecatalogue.favorite.ui.tvshow.TvShowFavoriteFragment
-import bobby.irawan.moviecatalogue.presentation.MainActivity
 import bobby.irawan.moviecatalogue.presentation.common.ViewPagerAdapter
 import com.google.android.material.tabs.TabLayoutMediator
 import org.koin.core.context.loadKoinModules
@@ -53,11 +51,6 @@ class FavoriteFragment : Fragment() {
                 }.attach()
             }
         }
-    }
-
-    override fun onAttach(context: Context) {
-        (activity as MainActivity).showBottomNavigation()
-        super.onAttach(context)
     }
 
 }
