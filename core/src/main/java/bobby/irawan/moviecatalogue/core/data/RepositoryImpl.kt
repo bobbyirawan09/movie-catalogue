@@ -52,6 +52,28 @@ class RepositoryImpl(
         }
     }
 
+    override suspend fun getMovieSearchResult(
+        query: String,
+        page: Int
+    ): Flow<SimpleResult<List<MovieDomainModel>>> {
+        return remoteDataSource.getMovieSearchResult(query, page).mapToResult { responses ->
+            Result.Success(responses?.map { response ->
+                DataMapper.movieResponseToDomain(response)
+            }.orEmpty())
+        }
+    }
+
+    override suspend fun getTvShowSearchResult(
+        query: String,
+        page: Int
+    ): Flow<SimpleResult<List<TvShowDomainModel>>> {
+        return remoteDataSource.getTvShowSearchResult(query, page).mapToResult { responses ->
+            Result.Success(responses?.map { response ->
+                DataMapper.tvShowResponseToDomain(response)
+            }.orEmpty())
+        }
+    }
+
     override fun getAllFavorite(): Flow<List<FavoriteDomainModel>> {
         return localDataSource.getAllFavorite().map { favoriteEntites ->
             favoriteEntites.map { favoriteEntity ->

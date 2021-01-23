@@ -7,9 +7,10 @@ object Constants {
     const val HEADER_INTERCEPTOR = "HeaderInterceptor"
     const val LOGGING_INTERCEPTOR = "LoggingInterceptor"
     const val QUERY_PARAM_API_KEY = "api_key"
-    const val PATH_PAGE = "page"
-    const val PATH_MOVIE_ID = "movie_id"
-    const val PATH_TV_ID = "tv_id"
+    const val QUERY_SEARCH_QUERY = "query"
+    const val QUERY_PAGE = "page"
+    const val QUERY_MOVIE_ID = "movie_id"
+    const val QUERY_TV_ID = "tv_id"
     const val DEFAULT_BACKDROP_URL =
         "http://placehold.jp/36/cccccc/aaaaaa/480x270.png?text=Awesome%20Poster%20Here"
     const val DEFAULT_POSTER_URL =

@@ -7,11 +7,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupActionBarWithNavController
 import bobby.irawan.moviecatalogue.R
 import bobby.irawan.moviecatalogue.databinding.ActivityMainBinding
-import bobby.irawan.moviecatalogue.utils.setVisible
 
 class MainActivity : AppCompatActivity() {
 
@@ -47,6 +45,7 @@ class MainActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.favorite -> navHostFragment.findNavController().navigate(R.id.favoriteFragment)
+            R.id.search -> navHostFragment.findNavController().navigate(R.id.searchFragment)
         }
         return super.onOptionsItemSelected(item)
     }

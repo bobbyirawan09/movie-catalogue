@@ -1,9 +1,7 @@
 package bobby.irawan.moviecatalogue.favorite.ui
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.fragment.app.Fragment
 import bobby.irawan.moviecatalogue.databinding.FragmentFavoriteBinding
 import bobby.irawan.moviecatalogue.favorite.di.favoriteModule
@@ -27,6 +25,7 @@ class FavoriteFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentFavoriteBinding.inflate(inflater, container, false)
+        setHasOptionsMenu(true)
         return binding?.root
     }
 
@@ -34,6 +33,11 @@ class FavoriteFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setupView()
         setupViewPager()
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        menu.clear()
+        super.onCreateOptionsMenu(menu, inflater)
     }
 
     private fun setupView() {

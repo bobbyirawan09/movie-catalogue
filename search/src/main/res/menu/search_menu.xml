@@ -2,13 +2,10 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/favorite"
-        android:icon="@drawable/ic_favorited_white"
-        android:title="@string/settings_title"
-        app:showAsAction="ifRoom" />
-    <item
         android:id="@+id/search"
         android:icon="@drawable/ic_search_white"
         android:title="@string/search_title"
-        app:showAsAction="ifRoom" />
+        app:actionViewClass="android.widget.SearchView"
+        app:queryHint="@string/search_hint"
+        app:showAsAction="always"/>
 </menu>

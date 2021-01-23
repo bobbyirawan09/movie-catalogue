@@ -4,8 +4,9 @@ import bobby.irawan.moviecatalogue.core.data.common.SimpleBaseResponse
 import bobby.irawan.moviecatalogue.core.data.common.SimpleResponse
 import bobby.irawan.moviecatalogue.core.data.remote.tvshow.model.TvShowDetailResponse
 import bobby.irawan.moviecatalogue.core.data.remote.tvshow.model.TvShowResponse
-import bobby.irawan.moviecatalogue.core.utils.Constants.PATH_PAGE
-import bobby.irawan.moviecatalogue.core.utils.Constants.PATH_TV_ID
+import bobby.irawan.moviecatalogue.core.utils.Constants.QUERY_PAGE
+import bobby.irawan.moviecatalogue.core.utils.Constants.QUERY_SEARCH_QUERY
+import bobby.irawan.moviecatalogue.core.utils.Constants.QUERY_TV_ID
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
@@ -17,11 +18,17 @@ interface TvShowApi {
 
     @GET("tv/popular")
     suspend fun getPopularTvShow(
-        @Query(PATH_PAGE) pages: Int
+        @Query(QUERY_PAGE) pages: Int
     ): SimpleBaseResponse<List<TvShowResponse>>
 
-    @GET("tv/{$PATH_TV_ID}")
+    @GET("tv/{$QUERY_TV_ID}")
     suspend fun getDetailTvShow(
-        @Path(PATH_TV_ID) tvId: Int
+        @Path(QUERY_TV_ID) tvId: Int
     ): SimpleResponse<TvShowDetailResponse>
+
+    @GET("search/popular")
+    suspend fun getTvShowSearchResult(
+        @Query(QUERY_SEARCH_QUERY) query: String,
+        @Query(QUERY_PAGE) pages: Int
+    ): SimpleBaseResponse<List<TvShowResponse>>
 }

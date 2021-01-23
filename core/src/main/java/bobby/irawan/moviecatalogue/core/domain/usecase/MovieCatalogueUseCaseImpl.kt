@@ -21,6 +21,16 @@ class MovieCatalogueUseCaseImpl(private val repository: Repository) : MovieCatal
     override suspend fun getDetailTvShow(tvId: Int): Flow<SimpleResult<TvShowDetailDomainModel>> =
         repository.getDetailTvShow(tvId)
 
+    override suspend fun getMovieSearchResult(
+        query: String,
+        page: Int
+    ): Flow<SimpleResult<List<MovieDomainModel>>> = repository.getMovieSearchResult(query, page)
+
+    override suspend fun getTvShowSearchResult(
+        query: String,
+        page: Int
+    ): Flow<SimpleResult<List<TvShowDomainModel>>> = repository.getTvShowSearchResult(query, page)
+
     override fun getFavoriteMovie(): Flow<List<FavoriteDomainModel>> =
         repository.getFavoriteMovie()
 

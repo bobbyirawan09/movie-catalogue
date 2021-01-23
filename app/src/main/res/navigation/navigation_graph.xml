@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_homeFragment_to_favoriteFragment"
             app:destination="@id/favoriteFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_searchFragment"
+            app:destination="@id/searchFragment" />
     </fragment>
 
     <fragment
@@ -21,5 +24,13 @@
         app:moduleName="MovieCatalogue.favorite"
         android:label="@string/title_favorite"
         tools:layout="@layout/fragment_favorite"/>
+
+    <fragment
+        android:id="@+id/searchFragment"
+        android:name="bobby.irawan.moviecatalogue.search.ui.SearchFragment"
+        android:label="@string/title_search"
+        app:moduleName="MovieCatalogue.search"
+        tools:layout="@layout/fragment_search" />
+
 
 </navigation>

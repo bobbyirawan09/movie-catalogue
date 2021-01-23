@@ -2,6 +2,7 @@
     <string name="app_name">Movie Catalogue</string>
     <string name="no_available_information">No available information</string>
     <string name="settings_title">Settings</string>
+    <string name="search_title">Search</string>
     <string name="vote_count_label">(%s votes)</string>
     <string name="release_date_label">Release date</string>
     <string name="share_title">Share</string>
@@ -31,4 +32,5 @@
     <string name="title_image_back">Image Back</string>
     <string name="title_image_share">Image Share</string>
     <string name="title_image_favorite">Image Favorite</string>
+    <string name="title_search">Search</string>
 </resources>

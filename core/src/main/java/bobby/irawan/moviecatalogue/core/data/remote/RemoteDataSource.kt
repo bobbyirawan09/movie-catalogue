@@ -46,4 +46,20 @@ class RemoteDataSource(private val tvShowApi: TvShowApi, private val movieApi: M
             }
         )
     }
+
+    suspend fun getMovieSearchResult(query: String, page: Int): Flow<Resource<List<MovieResponse>>> {
+        return networkBaseResponseHandling(
+            callApi = {
+                movieApi.getMovieSearchResult(query, page)
+            }
+        )
+    }
+
+    suspend fun getTvShowSearchResult(query: String,page: Int): Flow<Resource<List<TvShowResponse>>> {
+        return networkBaseResponseHandling(
+            callApi = {
+                tvShowApi.getTvShowSearchResult(query, page)
+            }
+        )
+    }
 }
