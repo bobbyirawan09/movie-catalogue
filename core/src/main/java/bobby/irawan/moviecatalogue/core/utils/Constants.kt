@@ -17,4 +17,5 @@ object Constants {
         "http://placehold.jp/48/cccccc/aaaaaa/320x480.png?text=Awesome%20Poster%20Here"
     const val ITEM_MOVIE = "movie"
     const val ITEM_TV_SHOW = "tv_show"
+    const val DATABASE_NAME="favorite_database"
 }

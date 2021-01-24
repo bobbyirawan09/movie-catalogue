@@ -10,9 +10,12 @@ import bobby.irawan.moviecatalogue.core.data.remote.RemoteDataSource
 import bobby.irawan.moviecatalogue.core.data.remote.movie.MovieApi
 import bobby.irawan.moviecatalogue.core.data.remote.tvshow.TvShowApi
 import bobby.irawan.moviecatalogue.core.domain.repository.Repository
+import bobby.irawan.moviecatalogue.core.utils.Constants.DATABASE_NAME
 import bobby.irawan.moviecatalogue.core.utils.Constants.HEADER_INTERCEPTOR
 import bobby.irawan.moviecatalogue.core.utils.Constants.LOGGING_INTERCEPTOR
 import com.chuckerteam.chucker.api.ChuckerInterceptor
+import net.sqlcipher.database.SQLiteDatabase
+import net.sqlcipher.database.SupportFactory
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -31,12 +34,15 @@ import java.util.concurrent.TimeUnit
 val dataModule = module {
 
     single {
+        val phasePhrase: ByteArray = SQLiteDatabase.getBytes(DATABASE_NAME.toCharArray())
+        val factory = SupportFactory(phasePhrase)
         Room.databaseBuilder(
             androidApplication(),
             FavoriteDatabase::class.java,
-            "favorite_database"
+            DATABASE_NAME
         )
             .fallbackToDestructiveMigration()
+            .openHelperFactory(factory)
             .build()
     }
 
