@@ -27,12 +27,6 @@ android {
         buildConfigField 'String', 'BASE_IMG_URL', '"https://image.tmdb.org/t/p/"'
     }
 
-    buildTypes {
-        release {
-            minifyEnabled false
-            consumerProguardFiles 'proguard-rules.pro'
-        }
-    }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
