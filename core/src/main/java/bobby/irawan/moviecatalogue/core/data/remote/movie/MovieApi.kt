@@ -22,7 +22,7 @@ interface MovieApi {
     @GET("movie/{${Constants.QUERY_MOVIE_ID}}")
     suspend fun getDetailMovie(@Path(Constants.QUERY_MOVIE_ID) movieId: Int): SimpleResponse<MovieDetailResponse>
 
-    @GET("search/popular")
+    @GET("search/movie")
     suspend fun getMovieSearchResult(
         @Query(QUERY_SEARCH_QUERY) query: String,
         @Query(QUERY_PAGE) pages: Int

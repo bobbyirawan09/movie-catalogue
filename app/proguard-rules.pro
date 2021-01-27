@@ -180,3 +180,7 @@
 -keep class bobby.irawan.moviecatalogue.presentation.model.** { *; }
 -keep class bobby.irawan.moviecatalogue.favorite.model.** { *; }
 -keep class bobby.irawan.moviecatalogue.search.model.** { *; }
+
+# SQL Cipher
+-keep,includedescriptorclasses class net.sqlcipher.** { *; }
+-keep,includedescriptorclasses interface net.sqlcipher.** { *; }

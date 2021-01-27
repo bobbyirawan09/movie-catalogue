@@ -26,7 +26,7 @@ interface TvShowApi {
         @Path(QUERY_TV_ID) tvId: Int
     ): SimpleResponse<TvShowDetailResponse>
 
-    @GET("search/popular")
+    @GET("search/tv")
     suspend fun getTvShowSearchResult(
         @Query(QUERY_SEARCH_QUERY) query: String,
         @Query(QUERY_PAGE) pages: Int

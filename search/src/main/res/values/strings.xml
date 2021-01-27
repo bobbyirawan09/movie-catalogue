@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="search_hint">Type something...</string>
+    <string name="movie_title">Movie</string>
+    <string name="tv_show_title">Tv Show</string>
 </resources>

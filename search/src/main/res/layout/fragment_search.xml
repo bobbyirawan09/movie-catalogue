@@ -5,9 +5,28 @@
     android:layout_height="match_parent"
     tools:context=".ui.SearchFragment">
 
-    <TextView
+    <RadioGroup
+        android:id="@+id/radio_group_search_type"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Hello" />
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/radio_button_movie"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:checked="true"
+            android:paddingHorizontal="8dp"
+            android:text="@string/movie_title" />
+
+        <RadioButton
+            android:id="@+id/radio_button_tv_show"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:paddingHorizontal="8dp"
+            android:text="@string/tv_show_title" />
+    </RadioGroup>
 
 </FrameLayout>
