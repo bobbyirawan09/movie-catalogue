@@ -8,6 +8,7 @@ import bobby.irawan.moviecatalogue.core.domain.commons.Result
 import bobby.irawan.moviecatalogue.core.domain.commons.mapToResult
 import bobby.irawan.moviecatalogue.core.domain.model.*
 import bobby.irawan.moviecatalogue.core.domain.repository.Repository
+import bobby.irawan.moviecatalogue.core.utils.Constants.ITEM_MOVIE
 import bobby.irawan.moviecatalogue.core.utils.DataMapper
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
@@ -53,13 +54,22 @@ class RepositoryImpl(
     }
 
     override suspend fun getMovieSearchResult(
+        searchType: String,
         query: String,
         page: Int
-    ): Flow<SimpleResult<List<MovieDomainModel>>> {
-        return remoteDataSource.getMovieSearchResult(query, page).mapToResult { responses ->
-            Result.Success(responses?.map { response ->
-                DataMapper.movieResponseToDomain(response)
-            }.orEmpty())
+    ): Flow<SimpleResult<List<SearchDomainModel>>> {
+        return if (searchType.equals(ITEM_MOVIE)) {
+            remoteDataSource.getMovieSearchResult(query, page).mapToResult { responses ->
+                Result.Success(responses?.map { response ->
+                    DataMapper.movieResponseToSearchDomain(response)
+                }.orEmpty())
+            }
+        } else {
+            remoteDataSource.getTvShowSearchResult(query, page).mapToResult { responses ->
+                Result.Success(responses?.map { response ->
+                    DataMapper.tvShowResponseToSearchDomain(response)
+                }.orEmpty())
+            }
         }
     }
 

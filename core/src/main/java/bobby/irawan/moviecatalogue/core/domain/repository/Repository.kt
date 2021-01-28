@@ -12,7 +12,7 @@ interface Repository {
     suspend fun getDetailTvShow(tvId: Int): Flow<SimpleResult<TvShowDetailDomainModel>>
     suspend fun getPopularMovies(page: Int): Flow<SimpleResult<List<MovieDomainModel>>>
     suspend fun getPopularTvShow(page: Int): Flow<SimpleResult<List<TvShowDomainModel>>>
-    suspend fun getMovieSearchResult(query: String, page: Int): Flow<SimpleResult<List<MovieDomainModel>>>
+    suspend fun getMovieSearchResult(searchType: String, query: String, page: Int): Flow<SimpleResult<List<SearchDomainModel>>>
     suspend fun getTvShowSearchResult(query: String, page: Int): Flow<SimpleResult<List<TvShowDomainModel>>>
 
     fun getAllFavorite(): Flow<List<FavoriteDomainModel>>

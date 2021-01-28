@@ -1,16 +1,17 @@
 package bobby.irawan.moviecatalogue.search.ui
 
-import androidx.lifecycle.*
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import bobby.irawan.moviecatalogue.core.data.common.SimpleResult
-import bobby.irawan.moviecatalogue.core.domain.model.MovieDomainModel
-import bobby.irawan.moviecatalogue.core.domain.model.TvShowDomainModel
+import bobby.irawan.moviecatalogue.core.domain.model.SearchDomainModel
 import bobby.irawan.moviecatalogue.core.domain.usecase.MovieCatalogueUseCase
 import bobby.irawan.moviecatalogue.core.utils.Constants.ITEM_MOVIE
+import bobby.irawan.moviecatalogue.search.model.SearchModelView
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
-import kotlinx.coroutines.channels.BroadcastChannel
-import kotlinx.coroutines.channels.Channel
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 @FlowPreview
@@ -18,48 +19,52 @@ import kotlinx.coroutines.launch
 class SearchViewModel(private val movieCatalogueUseCase: MovieCatalogueUseCase) : ViewModel() {
 
     private var page: Int = 1
+    private var keyword = ""
 
-    val queryChannel = BroadcastChannel<String>(Channel.CONFLATED)
+    val searchItem: MutableList<SearchModelView> = mutableListOf()
 
-    private var searchType = ITEM_MOVIE
+    var searchType = ITEM_MOVIE
+        private set
 
-    private val _movie =
-        MutableLiveData<SimpleResult<List<MovieDomainModel>>>()
-    val movie =
-        _movie as LiveData<SimpleResult<List<MovieDomainModel>>>
+    private val _searchResult =
+        MutableLiveData<SimpleResult<List<SearchDomainModel>>>()
+    val searchResult =
+        _searchResult as LiveData<SimpleResult<List<SearchDomainModel>>>
 
-    private val _tvShow =
-        MutableLiveData<SimpleResult<List<TvShowDomainModel>>>()
-    val tvShow =
-        _tvShow as LiveData<SimpleResult<List<TvShowDomainModel>>>
-
-    val searchResult = queryChannel.asFlow()
-        .debounce(300)
-        .distinctUntilChanged()
-        .mapLatest {query ->
-            if (query.isEmpty()) {
-                page = 1
-            }
-            movieCatalogueUseCase.getMovieSearchResult(query, page)
-            page++
-        }
-        .asLiveData()
+    private val _loadingNextPage = MutableLiveData<Boolean>()
+    fun loading() = _loadingNextPage as LiveData<Boolean>
 
     fun searchKeyword(keyword: String) {
+        page = 1
+        this.keyword = keyword
         viewModelScope.launch {
-            if (searchType.equals(ITEM_MOVIE, true)) {
-                movieCatalogueUseCase.getMovieSearchResult(keyword, page).collect {result ->
-                    _movie.value = result
-                }
-            } else {
-                movieCatalogueUseCase.getTvShowSearchResult(keyword, page).collect {result ->
-                    _tvShow.value = result
-                }
+            movieCatalogueUseCase.getSearchResult(searchType, keyword, page).collect { result ->
+                _searchResult.value = result
             }
         }
     }
 
     fun setSearchType(searchType: String) {
         this.searchType = searchType
+    }
+
+    fun searchKeywordNextPage() {
+        page++
+        viewModelScope.launch {
+            _loadingNextPage.postValue(true)
+            movieCatalogueUseCase.getSearchResult(searchType, keyword, page).collect {
+                _searchResult.postValue(it)
+            }
+            _loadingNextPage.postValue(false)
+        }
+    }
+
+    fun retryConnection() {
+        if (searchItem.isNotEmpty()) {
+            page--
+            searchKeywordNextPage()
+        } else {
+            searchKeyword(keyword)
+        }
     }
 }

@@ -18,8 +18,7 @@ interface MovieCatalogueUseCase {
     suspend fun getDetailTvShow(tvId: Int): Flow<SimpleResult<TvShowDetailDomainModel>>
 
     //Searhc
-    suspend fun getMovieSearchResult(query: String, page: Int): Flow<SimpleResult<List<MovieDomainModel>>>
-    suspend fun getTvShowSearchResult(query: String, page: Int): Flow<SimpleResult<List<TvShowDomainModel>>>
+    suspend fun getSearchResult(searchType: String, query: String, page: Int): Flow<SimpleResult<List<SearchDomainModel>>>
 
     //Favorite
     fun getFavoriteMovie(): Flow<List<FavoriteDomainModel>>

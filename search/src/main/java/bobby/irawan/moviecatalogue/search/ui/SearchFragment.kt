@@ -8,13 +8,17 @@ import android.widget.LinearLayout
 import android.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
+import bobby.irawan.moviecatalogue.core.domain.commons.Result
 import bobby.irawan.moviecatalogue.core.utils.Constants.ITEM_MOVIE
 import bobby.irawan.moviecatalogue.core.utils.Constants.ITEM_TV_SHOW
+import bobby.irawan.moviecatalogue.presentation.detail.movie.MovieDetailActivity
+import bobby.irawan.moviecatalogue.presentation.detail.tvshow.TvShowDetailActivity
 import bobby.irawan.moviecatalogue.search.R
 import bobby.irawan.moviecatalogue.search.databinding.FragmentSearchBinding
 import bobby.irawan.moviecatalogue.search.di.searchModule
-import bobby.irawan.moviecatalogue.utils.DataMapper
-import bobby.irawan.moviecatalogue.utils.showToast
+import bobby.irawan.moviecatalogue.search.ui.adapter.SearchItemAdapter
+import bobby.irawan.moviecatalogue.search.utils.DataMapper
+import bobby.irawan.moviecatalogue.utils.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.launch
@@ -23,10 +27,11 @@ import org.koin.core.context.loadKoinModules
 
 @ExperimentalCoroutinesApi
 @FlowPreview
-class SearchFragment : Fragment() {
+class SearchFragment : Fragment(), SearchItemAdapter.SearchAdapterListener {
 
     private var binding: FragmentSearchBinding? = null
     private val viewModel by viewModel<SearchViewModel>()
+    private val adapter = SearchItemAdapter(this)
 
     init {
         loadKoinModules(searchModule)
@@ -43,8 +48,13 @@ class SearchFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initView()
         initListener()
         initObserver()
+    }
+
+    private fun initView() {
+        binding?.recyclerViewTvShow?.adapter = adapter
     }
 
     private fun initListener() {
@@ -61,25 +71,35 @@ class SearchFragment : Fragment() {
     }
 
     private fun initObserver() {
-        viewModel.movie.observe(viewLifecycleOwner) {
+        viewModel.searchResult.observe(viewLifecycleOwner) {
             it.handleResult(
                 successDataBlock = { items ->
-                    val movies = items.map { DataMapper.movieDomainToPresentation(it) }
+                    val tvShows = items.map { DataMapper.searchDomainToPresentation(it) }
+                    viewModel.searchItem.addAll(tvShows)
+                    adapter.submitList(viewModel.searchItem)
+                    binding?.recyclerViewTvShow?.orGone(tvShows)
+                    binding?.textViewEmptyDataMessage?.isShowEmptyInfo(tvShows)
+                    binding?.shimmer?.setGoneAndStop()
                 },
                 errorBlock = {
                     showToast(it?.message.orEmpty())
+                    binding?.shimmer?.setGoneAndStop()
+                    binding?.textViewEmptyDataMessage?.showNoInfoIf(viewModel.searchItem)
                 }
-            )
-        }
-        viewModel.tvShow.observe(viewLifecycleOwner) {
-            it.handleResult(
-                successDataBlock = { items ->
-                    val movies = items.map { DataMapper.tvShowDomainToPresentation(it) }
-                },
-                errorBlock = {
-                    showToast(it?.message.orEmpty())
+            ) { state ->
+                when (state) {
+                    is Result.State.Loading -> {
+                        binding?.shimmer?.startShimmer()
+                    }
+                    is Result.State.NoInternet -> {
+                        binding?.root?.showNoInternetSnackbar { viewModel.retryConnection() }
+                        binding?.shimmer?.setGoneAndStop()
+                    }
+                    else -> {
+                        //Do nothing
+                    }
                 }
-            )
+            }
         }
     }
 
@@ -114,6 +134,18 @@ class SearchFragment : Fragment() {
             layoutParams.leftMargin = -16
         }
         super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    override fun onClickItem(itemId: Int) {
+        if (viewModel.searchType.equals(ITEM_MOVIE)) {
+            MovieDetailActivity.startActivity(requireActivity(), itemId)
+        } else {
+            TvShowDetailActivity.startActivity(requireContext(), itemId)
+        }
+    }
+
+    override fun onLoadNextPage() {
+        viewModel.searchKeywordNextPage()
     }
 
 }

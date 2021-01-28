@@ -110,4 +110,27 @@ object DataMapper {
             response.voteAverage,
             response.voteCount
         )
+
+    fun movieResponseToSearchDomain(response: MovieResponse): SearchDomainModel =
+        SearchDomainModel(
+            response.id,
+            response.title,
+            response.posterPath.asPosterUrl(),
+            response.backdropPath.asBackdropUrl(),
+            response.releaseDate.asShowDate(),
+            response.voteAverage.orZero(),
+            response.voteCount.orZero()
+        )
+
+    fun tvShowResponseToSearchDomain(response: TvShowResponse): SearchDomainModel =
+        SearchDomainModel(
+            response.id,
+            response.name,
+            response.posterPath.asPosterUrl(),
+            response.backdropPath.asBackdropUrl(),
+            response.firstAirDate.asShowDate(),
+            response.voteAverage,
+            response.voteCount
+        )
+
 }
