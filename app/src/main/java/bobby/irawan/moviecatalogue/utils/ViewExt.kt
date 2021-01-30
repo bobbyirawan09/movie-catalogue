@@ -129,6 +129,11 @@ fun View.hideSlideDown() {
     }
 }
 
+fun ShimmerFrameLayout.setVisibleAndStart() {
+    this.startShimmer()
+    this.setVisible()
+}
+
 fun ShimmerFrameLayout.setGoneAndStop() {
     this.setGone()
     this.stopShimmer()

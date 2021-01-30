@@ -30,7 +30,7 @@ class SearchItemAdapter(private val listener: SearchAdapterListener?) :
     }
     private val differ = AsyncListDiffer(this, diffCallback)
 
-    fun submitList(list: List<SearchModelView>) = differ.submitList(list)
+    fun submitList(list: List<SearchModelView>?) = differ.submitList(list)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding =
@@ -43,10 +43,10 @@ class SearchItemAdapter(private val listener: SearchAdapterListener?) :
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(differ.currentList[position])
         if (position == differ.currentList.lastIndex) {
             listener?.onLoadNextPage()
         }
+        holder.bind(differ.currentList[position])
     }
 
     inner class ViewHolder(private val binding: SearchItemBinding) :
@@ -56,7 +56,7 @@ class SearchItemAdapter(private val listener: SearchAdapterListener?) :
                 textViewTitle.text = movieItem.title.orNoInfoString()
                 imageViewBanner.setForMovieFavorite(movieItem.posterUrl)
                 textViewReleaseDate.text = movieItem.releaseDate.orNoInfoString()
-//                layoutVoteAverage.textViewVoteAverage.text = movieItem.voteAverage.toString()
+                layoutVoteAverage.textViewVoteAverage.text = movieItem.voteAverage.toString()
                 textViewTotalVotes.text =
                     root.context.getString(
                         R.string.vote_count_label,

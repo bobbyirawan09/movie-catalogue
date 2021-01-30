@@ -8,6 +8,7 @@ import android.widget.LinearLayout
 import android.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.observe
 import bobby.irawan.moviecatalogue.core.domain.commons.Result
 import bobby.irawan.moviecatalogue.core.utils.Constants.ITEM_MOVIE
 import bobby.irawan.moviecatalogue.core.utils.Constants.ITEM_TV_SHOW
@@ -77,9 +78,9 @@ class SearchFragment : Fragment(), SearchItemAdapter.SearchAdapterListener {
                     val tvShows = items.map { DataMapper.searchDomainToPresentation(it) }
                     viewModel.searchItem.addAll(tvShows)
                     adapter.submitList(viewModel.searchItem)
-                    binding?.recyclerViewTvShow?.orGone(tvShows)
-                    binding?.textViewEmptyDataMessage?.isShowEmptyInfo(tvShows)
+                    binding?.textViewEmptyDataMessage?.isShowEmptyInfo(viewModel.searchItem)
                     binding?.shimmer?.setGoneAndStop()
+                    binding?.recyclerViewTvShow?.orGone(viewModel.searchItem)
                 },
                 errorBlock = {
                     showToast(it?.message.orEmpty())
@@ -88,9 +89,6 @@ class SearchFragment : Fragment(), SearchItemAdapter.SearchAdapterListener {
                 }
             ) { state ->
                 when (state) {
-                    is Result.State.Loading -> {
-                        binding?.shimmer?.startShimmer()
-                    }
                     is Result.State.NoInternet -> {
                         binding?.root?.showNoInternetSnackbar { viewModel.retryConnection() }
                         binding?.shimmer?.setGoneAndStop()
@@ -100,6 +98,9 @@ class SearchFragment : Fragment(), SearchItemAdapter.SearchAdapterListener {
                     }
                 }
             }
+        }
+        viewModel.loading().observe(viewLifecycleOwner) {
+            binding?.linearLayoutProgressBottom?.showSlidingIf(it)
         }
     }
 
@@ -117,6 +118,10 @@ class SearchFragment : Fragment(), SearchItemAdapter.SearchAdapterListener {
             setOnQueryTextListener(object : SearchView.OnQueryTextListener {
                 override fun onQueryTextSubmit(text: String?): Boolean {
                     lifecycleScope.launch {
+                        adapter.submitList(null)
+                        binding?.recyclerViewTvShow?.setGone()
+                        binding?.textViewEmptyDataMessage?.setGone()
+                        binding?.shimmer?.setVisibleAndStart()
                         viewModel.searchKeyword(text.toString())
                     }
                     return false

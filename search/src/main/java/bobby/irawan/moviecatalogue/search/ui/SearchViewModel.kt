@@ -11,6 +11,7 @@ import bobby.irawan.moviecatalogue.core.utils.Constants.ITEM_MOVIE
 import bobby.irawan.moviecatalogue.search.model.SearchModelView
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
@@ -36,10 +37,11 @@ class SearchViewModel(private val movieCatalogueUseCase: MovieCatalogueUseCase) 
 
     fun searchKeyword(keyword: String) {
         page = 1
+        searchItem.clear()
         this.keyword = keyword
         viewModelScope.launch {
             movieCatalogueUseCase.getSearchResult(searchType, keyword, page).collect { result ->
-                _searchResult.value = result
+                _searchResult.postValue(result)
             }
         }
     }
@@ -53,6 +55,7 @@ class SearchViewModel(private val movieCatalogueUseCase: MovieCatalogueUseCase) 
         viewModelScope.launch {
             _loadingNextPage.postValue(true)
             movieCatalogueUseCase.getSearchResult(searchType, keyword, page).collect {
+                delay(1200)
                 _searchResult.postValue(it)
             }
             _loadingNextPage.postValue(false)

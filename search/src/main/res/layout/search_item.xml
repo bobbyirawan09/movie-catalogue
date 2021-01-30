@@ -58,7 +58,7 @@
 
     <include
         android:id="@+id/layout_vote_average"
-        layout="@layout/layout_vote_average"
+        layout="@layout/layout_vote_average_search"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
