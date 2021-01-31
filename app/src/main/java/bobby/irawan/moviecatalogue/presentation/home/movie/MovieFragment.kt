@@ -1,30 +1,21 @@
 package bobby.irawan.moviecatalogue.presentation.home.movie
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.observe
-import bobby.irawan.moviecatalogue.core.domain.commons.Result
+import bobby.irawan.moviecatalogue.R
 import bobby.irawan.moviecatalogue.databinding.FragmentMovieBinding
 import bobby.irawan.moviecatalogue.presentation.detail.movie.MovieDetailActivity
 import bobby.irawan.moviecatalogue.utils.*
+import by.kirich1409.viewbindingdelegate.viewBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class MovieFragment : Fragment(), MovieAdapter.MoviesAdapterListener {
+class MovieFragment : Fragment(R.layout.fragment_movie), MovieAdapter.MoviesAdapterListener {
 
-    private var binding: FragmentMovieBinding? = null
+    private val binding: FragmentMovieBinding by viewBinding()
     private val viewModel by viewModel<MovieViewModel>()
     private val adapter = MovieAdapter(this)
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        binding = FragmentMovieBinding.inflate(inflater, container, false)
-        return binding?.root
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -35,7 +26,7 @@ class MovieFragment : Fragment(), MovieAdapter.MoviesAdapterListener {
     }
 
     private fun setUpView() {
-        binding?.recyclerViewMovie?.adapter = adapter
+        binding.recyclerViewMovie.adapter = adapter
     }
 
     private fun observeViewModel() {
@@ -45,20 +36,20 @@ class MovieFragment : Fragment(), MovieAdapter.MoviesAdapterListener {
                     val movies = items.map { DataMapper.movieDomainToPresentation(it) }
                     viewModel.movies.addAll(movies)
                     adapter.submitList(viewModel.movies)
-                    binding?.recyclerViewMovie?.orGone(movies)
-                    binding?.textViewEmptyDataMessage?.isShowEmptyInfo(movies)
-                    binding?.shimmer?.setGoneAndStop()
+                    binding.recyclerViewMovie.orGone(movies)
+                    binding.textViewEmptyDataMessage.isShowEmptyInfo(movies)
+                    binding.shimmer.setGoneAndStop()
                     CountingIdlingResourceSingleton.decrement()
                 },
                 errorBlock = {
                     showToast(it?.message.orEmpty())
-                    binding?.shimmer?.setGoneAndStop()
-                    binding?.textViewEmptyDataMessage?.showNoInfoIf(viewModel.movies)
+                    binding.shimmer.setGoneAndStop()
+                    binding.textViewEmptyDataMessage.showNoInfoIf(viewModel.movies)
                 }
             )
         }
         viewModel.loading().observe(viewLifecycleOwner) {
-            binding?.linearLayoutProgressBottom?.showSlidingIf(it)
+            binding.linearLayoutProgressBottom.showSlidingIf(it)
         }
     }
 

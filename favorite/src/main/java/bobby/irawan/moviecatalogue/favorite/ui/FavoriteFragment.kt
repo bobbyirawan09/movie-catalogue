@@ -3,17 +3,19 @@ package bobby.irawan.moviecatalogue.favorite.ui
 import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
+import bobby.irawan.moviecatalogue.R
 import bobby.irawan.moviecatalogue.databinding.FragmentFavoriteBinding
 import bobby.irawan.moviecatalogue.favorite.di.favoriteModule
 import bobby.irawan.moviecatalogue.favorite.ui.movie.MovieFavoriteFragment
 import bobby.irawan.moviecatalogue.favorite.ui.tvshow.TvShowFavoriteFragment
 import bobby.irawan.moviecatalogue.presentation.common.ViewPagerAdapter
+import by.kirich1409.viewbindingdelegate.viewBinding
 import com.google.android.material.tabs.TabLayoutMediator
 import org.koin.core.context.loadKoinModules
 
-class FavoriteFragment : Fragment() {
+class FavoriteFragment : Fragment(R.layout.fragment_favorite) {
 
-    private var binding: FragmentFavoriteBinding? = null
+    private val binding: FragmentFavoriteBinding by viewBinding()
     private lateinit var pagerAdapter: ViewPagerAdapter
 
     init {
@@ -21,12 +23,12 @@ class FavoriteFragment : Fragment() {
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentFavoriteBinding.inflate(inflater, container, false)
         setHasOptionsMenu(true)
-        return binding?.root
+        return super.onCreateView(inflater, container, savedInstanceState)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -47,7 +49,7 @@ class FavoriteFragment : Fragment() {
     }
 
     private fun setupViewPager() {
-        binding?.let {
+        binding.let {
             with(it) {
                 viewPagerFavorite.adapter = pagerAdapter
                 TabLayoutMediator(tabLayoutFavorite, viewPagerFavorite) { tab, pos ->

@@ -59,4 +59,7 @@ dependencies {
     implementation "androidx.paging:paging-runtime:$pagingVersion"
 
     debugImplementation "com.squareup.leakcanary:leakcanary-android:$leakCanaryVersion"
+
+    //Fragment delegation
+    implementation 'com.kirich1409.viewbindingpropertydelegate:viewbindingpropertydelegate:1.4.1'
 }

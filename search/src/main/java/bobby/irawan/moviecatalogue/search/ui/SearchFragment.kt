@@ -20,6 +20,7 @@ import bobby.irawan.moviecatalogue.search.di.searchModule
 import bobby.irawan.moviecatalogue.search.ui.adapter.SearchItemAdapter
 import bobby.irawan.moviecatalogue.search.utils.DataMapper
 import bobby.irawan.moviecatalogue.utils.*
+import by.kirich1409.viewbindingdelegate.viewBinding
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.launch
@@ -28,9 +29,9 @@ import org.koin.core.context.loadKoinModules
 
 @ExperimentalCoroutinesApi
 @FlowPreview
-class SearchFragment : Fragment(), SearchItemAdapter.SearchAdapterListener {
+class SearchFragment : Fragment(R.layout.fragment_search), SearchItemAdapter.SearchAdapterListener {
 
-    private var binding: FragmentSearchBinding? = null
+    private val binding: FragmentSearchBinding by viewBinding()
     private val viewModel by viewModel<SearchViewModel>()
     private val adapter = SearchItemAdapter(this)
 
@@ -39,12 +40,12 @@ class SearchFragment : Fragment(), SearchItemAdapter.SearchAdapterListener {
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         setHasOptionsMenu(true)
-        binding = FragmentSearchBinding.inflate(inflater, container, false)
-        return binding?.root
+        return super.onCreateView(inflater, container, savedInstanceState)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -55,11 +56,11 @@ class SearchFragment : Fragment(), SearchItemAdapter.SearchAdapterListener {
     }
 
     private fun initView() {
-        binding?.recyclerViewTvShow?.adapter = adapter
+        binding.recyclerViewTvShow.adapter = adapter
     }
 
     private fun initListener() {
-        binding?.radioGroupSearchType?.setOnCheckedChangeListener { radioGroup, i ->
+        binding.radioGroupSearchType.setOnCheckedChangeListener { radioGroup, i ->
             when (radioGroup.checkedRadioButtonId) {
                 R.id.radio_button_movie -> {
                     viewModel.setSearchType(ITEM_MOVIE)
@@ -78,20 +79,20 @@ class SearchFragment : Fragment(), SearchItemAdapter.SearchAdapterListener {
                     val tvShows = items.map { DataMapper.searchDomainToPresentation(it) }
                     viewModel.searchItem.addAll(tvShows)
                     adapter.submitList(viewModel.searchItem)
-                    binding?.textViewEmptyDataMessage?.isShowEmptyInfo(viewModel.searchItem)
-                    binding?.shimmer?.setGoneAndStop()
-                    binding?.recyclerViewTvShow?.orGone(viewModel.searchItem)
+                    binding.textViewEmptyDataMessage.isShowEmptyInfo(viewModel.searchItem)
+                    binding.shimmer.setGoneAndStop()
+                    binding.recyclerViewTvShow.orGone(viewModel.searchItem)
                 },
                 errorBlock = {
                     showToast(it?.message.orEmpty())
-                    binding?.shimmer?.setGoneAndStop()
-                    binding?.textViewEmptyDataMessage?.showNoInfoIf(viewModel.searchItem)
+                    binding.shimmer.setGoneAndStop()
+                    binding.textViewEmptyDataMessage.showNoInfoIf(viewModel.searchItem)
                 }
             ) { state ->
                 when (state) {
                     is Result.State.NoInternet -> {
-                        binding?.root?.showNoInternetSnackbar { viewModel.retryConnection() }
-                        binding?.shimmer?.setGoneAndStop()
+                        binding.root.showNoInternetSnackbar { viewModel.retryConnection() }
+                        binding.shimmer.setGoneAndStop()
                     }
                     else -> {
                         //Do nothing
@@ -100,7 +101,7 @@ class SearchFragment : Fragment(), SearchItemAdapter.SearchAdapterListener {
             }
         }
         viewModel.loading().observe(viewLifecycleOwner) {
-            binding?.linearLayoutProgressBottom?.showSlidingIf(it)
+            binding.linearLayoutProgressBottom.showSlidingIf(it)
         }
     }
 
@@ -116,12 +117,12 @@ class SearchFragment : Fragment(), SearchItemAdapter.SearchAdapterListener {
             queryHint = resources.getString(R.string.search_hint)
 
             setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-                override fun onQueryTextSubmit(text: String?): Boolean {
+                override fun onQueryTextSubmit(text: String): Boolean {
                     lifecycleScope.launch {
                         adapter.submitList(null)
-                        binding?.recyclerViewTvShow?.setGone()
-                        binding?.textViewEmptyDataMessage?.setGone()
-                        binding?.shimmer?.setVisibleAndStart()
+                        binding.recyclerViewTvShow.setGone()
+                        binding.textViewEmptyDataMessage.setGone()
+                        binding.shimmer.setVisibleAndStart()
                         viewModel.searchKeyword(text.toString())
                     }
                     return false

@@ -1,32 +1,24 @@
 package bobby.irawan.moviecatalogue.favorite.ui.tvshow
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.observe
+import bobby.irawan.moviecatalogue.R
 import bobby.irawan.moviecatalogue.databinding.FragmentTvShowFavoriteBinding
 import bobby.irawan.moviecatalogue.favorite.ui.adapter.ItemFavoriteAdapter
 import bobby.irawan.moviecatalogue.presentation.detail.tvshow.TvShowDetailActivity
+import by.kirich1409.viewbindingdelegate.viewBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class TvShowFavoriteFragment : Fragment() {
+class TvShowFavoriteFragment : Fragment(R.layout.fragment_tv_show_favorite) {
 
-    private var binding: FragmentTvShowFavoriteBinding? = null
+    private val binding: FragmentTvShowFavoriteBinding by viewBinding()
     private val viewModel by viewModel<TvShowFavoriteViewModel>()
     private val adapter by lazy {
         ItemFavoriteAdapter {
             TvShowDetailActivity.startActivity(requireContext(), it)
         }
-    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        binding = FragmentTvShowFavoriteBinding.inflate(inflater, container, false)
-        return binding?.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -37,7 +29,7 @@ class TvShowFavoriteFragment : Fragment() {
     }
 
     private fun setupView() {
-        binding?.recyclerViewItem?.adapter = adapter
+        binding.recyclerViewItem.adapter = adapter
     }
 
     private fun setupObserver() {
