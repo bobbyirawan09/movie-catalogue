@@ -44,7 +44,8 @@ class FavoriteFragment : Fragment(R.layout.fragment_favorite) {
 
     private fun setupView() {
         pagerAdapter =
-            ViewPagerAdapter(this)
+            ViewPagerAdapter(childFragmentManager, viewLifecycleOwner.lifecycle)
+        pagerAdapter.setTitle(getString(R.string.movies_title), getString(R.string.tv_shows_title))
         pagerAdapter.setFragment(MovieFavoriteFragment(), TvShowFavoriteFragment())
     }
 

@@ -19,7 +19,8 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         pagerAdapter =
-            ViewPagerAdapter(this)
+            ViewPagerAdapter(childFragmentManager, viewLifecycleOwner.lifecycle)
+        pagerAdapter.setTitle(getString(R.string.movies_title), getString(R.string.tv_shows_title))
         pagerAdapter.setFragment(MovieFragment(), TvShowFragment())
 
         setupViewPager()
