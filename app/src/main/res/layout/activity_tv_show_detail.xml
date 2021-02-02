@@ -17,6 +17,7 @@
             android:id="@+id/image_view_backdrop"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:contentDescription="@string/content_description_backdrop"
             android:scaleType="fitXY" />
 
         <View
@@ -43,6 +44,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
+            android:contentDescription="@string/content_description_back"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/ic_back_white" />
@@ -53,6 +55,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
+            android:contentDescription="@string/content_description_share"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/ic_share_white" />
@@ -63,6 +66,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="24dp"
+            android:contentDescription="@string/content_description_favorite"
             app:layout_constraintEnd_toStartOf="@id/image_view_share"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/ic_favorite_border" />

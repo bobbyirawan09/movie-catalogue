@@ -154,4 +154,9 @@ class SearchFragment : Fragment(R.layout.fragment_search), SearchItemAdapter.Sea
         viewModel.searchKeywordNextPage()
     }
 
+    override fun onDestroyView() {
+        binding.recyclerViewTvShow.adapter = null
+        super.onDestroyView()
+    }
+
 }

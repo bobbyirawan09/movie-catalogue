@@ -4,10 +4,8 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.ShareCompat
 import androidx.lifecycle.observe
 import bobby.irawan.moviecatalogue.R
-import bobby.irawan.moviecatalogue.core.domain.commons.Result
 import bobby.irawan.moviecatalogue.databinding.ActivityTvShowDetailBinding
 import bobby.irawan.moviecatalogue.utils.DataMapper
 import bobby.irawan.moviecatalogue.utils.setForMovieBanner
@@ -51,11 +49,14 @@ class TvShowDetailActivity : AppCompatActivity() {
             imageViewShare.setOnClickListener {
                 val message =
                     applicationContext.getString(R.string.share_message, title, voteAverage)
-                ShareCompat.IntentBuilder.from(this@TvShowDetailActivity)
-                    .setType("text/plain")
-                    .setChooserTitle(getString(R.string.share_title))
-                    .setText(message)
-                    .startChooser()
+                val sendIntent: Intent = Intent().apply {
+                    action = Intent.ACTION_SEND
+                    putExtra(Intent.EXTRA_TEXT, message)
+                    type = "text/plain"
+                }
+
+                val shareIntent = Intent.createChooser(sendIntent, null)
+                startActivity(shareIntent)
             }
             imageViewFavorite.setOnClickListener {
                 viewModel.onFavoriteClick()
@@ -107,6 +108,11 @@ class TvShowDetailActivity : AppCompatActivity() {
                 }
             )
         }
+    }
+
+    override fun onDestroy() {
+        binding.layoutBottomSheet.recyclerViewSeason.adapter = null
+        super.onDestroy()
     }
 
     companion object {

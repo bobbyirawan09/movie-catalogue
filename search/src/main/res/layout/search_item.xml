@@ -12,6 +12,7 @@
         android:layout_width="120dp"
         android:layout_height="0dp"
         android:background="@drawable/bg_rounded_corner"
+        android:contentDescription="@string/content_description_banner"
         android:scaleType="fitCenter"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"

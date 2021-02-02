@@ -33,4 +33,9 @@
     <string name="title_image_share">Image Share</string>
     <string name="title_image_favorite">Image Favorite</string>
     <string name="title_search">Search</string>
+    <string name="content_description_backdrop">Image view backdrop</string>
+    <string name="content_description_back">Image view back</string>
+    <string name="content_description_share">Image view share</string>
+    <string name="content_description_favorite">Image view favorite</string>
+    <string name="content_description_banner">Image view banner</string>
 </resources>

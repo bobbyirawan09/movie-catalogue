@@ -5,6 +5,7 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.observe
 import bobby.irawan.moviecatalogue.R
+import bobby.irawan.moviecatalogue.core.domain.commons.Result
 import bobby.irawan.moviecatalogue.databinding.FragmentMovieBinding
 import bobby.irawan.moviecatalogue.presentation.detail.movie.MovieDetailActivity
 import bobby.irawan.moviecatalogue.utils.*
@@ -46,7 +47,20 @@ class MovieFragment : Fragment(R.layout.fragment_movie), MovieAdapter.MoviesAdap
                     binding.shimmer.setGoneAndStop()
                     binding.textViewEmptyDataMessage.showNoInfoIf(viewModel.movies)
                 }
-            )
+            ) { state ->
+                when (state) {
+                    is Result.State.Loading -> {
+                        binding.shimmer.startShimmer()
+                    }
+                    is Result.State.NoInternet -> {
+                        binding.root.showNoInternetSnackbar { viewModel.retryConnection() }
+                        binding.shimmer.setGoneAndStop()
+                    }
+                    else -> {
+                        //Do nothing
+                    }
+                }
+            }
         }
         viewModel.loading().observe(viewLifecycleOwner) {
             binding.linearLayoutProgressBottom.showSlidingIf(it)
@@ -59,6 +73,11 @@ class MovieFragment : Fragment(R.layout.fragment_movie), MovieAdapter.MoviesAdap
 
     override fun onLoadNextPage() {
         viewModel.loadMovieNextPage()
+    }
+
+    override fun onDestroyView() {
+        binding.recyclerViewMovie.adapter = null
+        super.onDestroyView()
     }
 
 }

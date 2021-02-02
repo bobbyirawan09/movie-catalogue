@@ -60,4 +60,9 @@ class FavoriteFragment : Fragment(R.layout.fragment_favorite) {
         }
     }
 
+    override fun onDestroyView() {
+        binding.viewPagerFavorite.adapter = null
+        super.onDestroyView()
+    }
+
 }

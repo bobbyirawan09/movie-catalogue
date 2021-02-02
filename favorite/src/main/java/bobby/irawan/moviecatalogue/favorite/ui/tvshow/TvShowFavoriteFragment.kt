@@ -38,4 +38,9 @@ class TvShowFavoriteFragment : Fragment(R.layout.fragment_tv_show_favorite) {
         }
     }
 
+    override fun onDestroyView() {
+        binding.recyclerViewItem.adapter = null
+        super.onDestroyView()
+    }
+
 }

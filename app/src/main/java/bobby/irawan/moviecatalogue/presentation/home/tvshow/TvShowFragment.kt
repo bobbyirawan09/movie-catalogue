@@ -12,7 +12,7 @@ import bobby.irawan.moviecatalogue.utils.*
 import by.kirich1409.viewbindingdelegate.viewBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class TvShowFragment : Fragment(R.layout.fragment_tv_show_), TvShowAdapter.TvShowAdapterListener {
+class TvShowFragment : Fragment(R.layout.fragment_tv_show), TvShowAdapter.TvShowAdapterListener {
 
     private val binding: FragmentTvShowBinding by viewBinding()
     private val viewModel by viewModel<TvShowViewModel>()
@@ -73,5 +73,10 @@ class TvShowFragment : Fragment(R.layout.fragment_tv_show_), TvShowAdapter.TvSho
 
     override fun onLoadNextPage() {
         viewModel.loadTvShowNextPage()
+    }
+
+    override fun onDestroyView() {
+        binding.recyclerViewTvShow.adapter = null
+        super.onDestroyView()
     }
 }

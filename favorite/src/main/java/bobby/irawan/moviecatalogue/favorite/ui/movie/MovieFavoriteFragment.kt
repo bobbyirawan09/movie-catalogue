@@ -40,4 +40,9 @@ class MovieFavoriteFragment : Fragment(R.layout.fragment_movie_favorite) {
             adapter.submitList(it)
         }
     }
+
+    override fun onDestroyView() {
+        binding.recyclerViewItem.adapter = null
+        super.onDestroyView()
+    }
 }

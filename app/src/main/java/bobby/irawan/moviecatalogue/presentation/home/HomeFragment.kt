@@ -14,14 +14,14 @@ import com.google.android.material.tabs.TabLayoutMediator
 class HomeFragment : Fragment(R.layout.fragment_home) {
 
     private val binding: FragmentHomeBinding by viewBinding()
-    private lateinit var pagerAdapter: ViewPagerAdapter
+    private var pagerAdapter: ViewPagerAdapter? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         pagerAdapter =
             ViewPagerAdapter(childFragmentManager, viewLifecycleOwner.lifecycle)
-        pagerAdapter.setTitle(getString(R.string.movies_title), getString(R.string.tv_shows_title))
-        pagerAdapter.setFragment(MovieFragment(), TvShowFragment())
+        pagerAdapter?.setTitle(getString(R.string.movies_title), getString(R.string.tv_shows_title))
+        pagerAdapter?.setFragment(MovieFragment(), TvShowFragment())
 
         setupViewPager()
     }
@@ -31,9 +31,15 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             with(it) {
                 viewPagerHome.adapter = pagerAdapter
                 TabLayoutMediator(tabLayoutHome, viewPagerHome) { tab, pos ->
-                    tab.text = pagerAdapter.title[pos]
+                    tab.text = pagerAdapter?.title?.get(pos)
                 }.attach()
             }
         }
+    }
+
+    override fun onDestroyView() {
+        binding.viewPagerHome.adapter = null
+        pagerAdapter = null
+        super.onDestroyView()
     }
 }
