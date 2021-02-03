@@ -29,7 +29,7 @@ buildscript {
         roomVersion = '2.2.6'
         pagingVersion = '2.1.2'
         sqlCipherVersion='4.4.2'
-        sqliteKtxVersion='2.0.1'
+        sqliteKtxVersion='2.1.0'
         leakCanaryVersion='2.6'
     }
     repositories {

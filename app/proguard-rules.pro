@@ -106,20 +106,6 @@
 ###---------------ENDING ARCH COMPONENT CONFIGURATION---------------###
 
 
-
-###---------------STARTING CRASHLYTICS CONFIGURATION---------------###
-
-# If you're using custom Eception
--keep public class * extends java.lang.Exception
-
--keep class com.crashlytics.** { *; }
--dontwarn com.crashlytics.**
--keep class com.google.firebase.crashlytics.** { *; }
--dontwarn com.google.firebase.crashlytics.**
-###---------------ENDING CRASHLYTICS CONFIGURATION---------------###
-
-
-
 ###---------------STARTING GSON CONFIGURATION---------------###
 # Gson uses generic type information stored in a class file when working with fields. Proguard
 # removes such information by default, so configure it to keep all of it.
